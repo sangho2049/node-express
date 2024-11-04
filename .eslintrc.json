@@ -1,0 +1,87 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest": true // Add this line
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "unused-imports",
+    "simple-import-sort"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "endOfLine": "auto"
+      }
+    ],
+    "no-unused-private-class-members": "error",
+    "no-console": "warn",
+    "complexity": [
+      "warn",
+      {
+        "max": 10
+      }
+    ],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "import/extensions": "off", // Avoid missing file extension errors, TypeScript already provides a similar feature
+    "import/prefer-default-export": "off", // Named export is easier to refactor automatically
+    "simple-import-sort/imports": "error", // Import configuration for `eslint-plugin-simple-import-sort`
+    "simple-import-sort/exports": "error", // Export configuration for `eslint-plugin-simple-import-sort`
+    "import/order": "off" // Avoid conflict rule between `eslint-plugin-import` and `eslint-plugin-simple-import-sort`
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.js"
+      ],
+      "plugins": [
+        "@typescript-eslint",
+        "unused-imports",
+        "simple-import-sort"
+      ],
+      "extends": [
+        "plugin:prettier/recommended"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/consistent-type-imports": [
+          "error",
+          {
+            "prefer": "no-type-imports"
+          }
+        ]
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "db/migrations",
+    "auto-imports.d.ts"
+  ]
+}
