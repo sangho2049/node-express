@@ -1,4 +1,5 @@
 import { IUser } from '../interfaces/user.interface';
+import User from '../models/user.model';
 
 export class UserService {
   getUser() {
@@ -42,15 +43,21 @@ export class UserService {
     };
   }
 
-  create(user: IUser) {
-    /**
-     * TODO: create user
-     */
-    return {
-      id: 1,
-      name: user.name ?? 'John Doe',
-      email: user.email ?? 'john@example.com',
-    };
+  //create users
+
+  async create(user: IUser) {
+    try {
+      // Tạo user mới và lưu vào MongoDB
+      const newUser = await User.create(user);
+      return newUser;
+    } catch (error) {
+      // Ép kiểu 'error' thành 'Error' để sử dụng thuộc tính 'message'
+      throw new Error(`Error creating user: ${(error as Error).message}`);
+    }
+  }
+
+  async findByEmail(email: string) {
+    return await User.findOne({ email });
   }
 
   update(user: IUser) {
